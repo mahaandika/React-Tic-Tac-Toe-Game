@@ -35,10 +35,7 @@ function calculateWinner(squares) {
   return false;
 }
 
-export default function Board() {
-  const [squares, setSquares] = useState(Array(9).fill(null));
-  const [xNextTurn, setXNextTurn] = useState(true);
-
+function Board({ xNextTurn, squares, onPlay }) {
   function handleSquareClick(i) {
     if (squares[i] || calculateWinner(squares)) {
       return;
@@ -50,8 +47,8 @@ export default function Board() {
     } else {
       nextSquare[i] = "O";
     }
-    setSquares(nextSquare);
-    setXNextTurn(!xNextTurn);
+
+    onPlay(nextSquare);
   }
 
   const winner = calculateWinner(squares);
@@ -85,6 +82,57 @@ export default function Board() {
         <Square value={squares[6]} onSquareClick={() => handleSquareClick(6)} />
         <Square value={squares[7]} onSquareClick={() => handleSquareClick(7)} />
         <Square value={squares[8]} onSquareClick={() => handleSquareClick(8)} />
+      </div>
+    </>
+  );
+}
+
+export default function Game() {
+  const [xNextTurn, setXNextTurn] = useState(true);
+  const [history, setHistory] = useState([Array(9).fill(null)]);
+  const [currentMove, setCurrentMove] = useState(0);
+  const currentSquares = history[currentMove];
+
+  function jumpTo(nextMove) {
+    setCurrentMove(nextMove);
+    setXNextTurn(nextMove % 2 === 0);
+  }
+
+  function handlePlay(nextSquare) {
+    const nextHistory = [...history.slice(0, currentMove + 1), nextSquare];
+    setHistory(nextHistory);
+    setCurrentMove(nextHistory.length - 1);
+    setXNextTurn(!xNextTurn);
+  }
+
+  const moves = history.map((squares, move) => {
+    let description = "";
+    if (move > 0) {
+      description = "back to move #" + move;
+    } else {
+      description = "back to start";
+    }
+
+    return (
+      <li key={move}>
+        <button onClick={() => jumpTo(move)}>{description}</button>
+      </li>
+    );
+  });
+
+  return (
+    <>
+      <div className="game">
+        <div className="game-board">
+          <Board
+            xNextTurn={xNextTurn}
+            squares={currentSquares}
+            onPlay={handlePlay}
+          />
+        </div>
+        <div className="game-info">
+          <ol>{moves}</ol>
+        </div>
       </div>
     </>
   );
