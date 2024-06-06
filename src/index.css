@@ -1,0 +1,25 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0;
+  margin: 20px;
+  font-family: sans-serif;
+}
+
+.square {
+  width: 50px;
+  height: 50px;
+  font-size: 1.5rem;
+  border: 1px solid black;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.board {
+  display: flex;
+  flex-wrap: wrap;
+  width: 150px; /* width dari .square dikali 3. jadi 50 X 3 = 150px */
+  height: 150px; /* height dari .square dikali 3. jadi 50 X 3 = 150px */
+}
