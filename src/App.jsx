@@ -42,11 +42,15 @@ function Board({ xNextTurn, squares, onPlay }) {
     }
 
     const nextSquare = squares.slice();
+    /*
     if (xNextTurn) {
       nextSquare[i] = "X";
     } else {
       nextSquare[i] = "O";
     }
+      jika ingin membuat dengan ternary operator maka code nya akan seperti dibawah
+    */
+    nextSquare[i] = xNextTurn ? "X" : "O";
 
     onPlay(nextSquare);
   }
