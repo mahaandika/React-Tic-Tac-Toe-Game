@@ -6,6 +6,10 @@ body {
   padding: 0;
   margin: 20px;
   font-family: sans-serif;
+  display: flex;
+  justify-content: center;
+  margin-top: 10%;
+  background-image: url(../src/assets/pattern2.png);
 }
 
 .square {
@@ -22,4 +26,32 @@ body {
   flex-wrap: wrap;
   width: 150px; /* width dari .square dikali 3. jadi 50 X 3 = 150px */
   height: 150px; /* height dari .square dikali 3. jadi 50 X 3 = 150px */
+}
+
+.game {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-color: aqua; */
+  width: 500px;
+  padding: 50px;
+}
+
+.game ol {
+  color: white;
+  overflow: visible;
+}
+
+.status {
+  color: white;
+  margin-bottom: 10px;
+  width: 100px;
+}
+
+.title {
+  text-transform: capitalize;
+  text-align: center;
+  margin: auto;
+  color: aliceblue;
+  font-size: 50px;
 }
